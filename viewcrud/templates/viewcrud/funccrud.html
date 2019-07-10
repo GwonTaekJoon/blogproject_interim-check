@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <style>
+        .paginator{
+            text-align: center;
+            font-size: 30px;
+        }
+        .writing{
+            font-size:30px;
+            text-align: center;
+            !important margin: 0 auto;
+            width :100%;
+        }
+        .writing2{
+            text-align: center;
+        }
+        p,a,h1{
+            font-family: 'Do Hyeon', sans-serif;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+{%extends 'base.html'%}
+{%block contents%}
+<div class="container">
+    <div class="writing2">
+        <a class="writing text-center" href="{% url 'newblog' %}">글쓰기</a></div>
+{% for blog in posts %}
+<h2>{{blog.title}}</h2>
+<p>{{blog.summary}}</p> <a href="{%url 'detail' blog.id%}">...more</a>
+<p>{{blog.pub_date}}</p>
+<hr>
+<a href="{% url 'update' blog.id%}">수정</a>
+<a class="delete" href="{% url 'delete' blog.id %}">삭제</a>
+<p>댓글목록</p>
+<a class="btn btn-default" href="{% url 'add_comment' pk=blog.pk %}">ADD COMMENT</a>
+{% for comment in blog.comments.all %}
+<div class="comment">
+    <div class="date">{{ comment.created_date }}</div>
+    <strong>{{ comment.author}}</strong>
+    <p>{{comment.text|linebreaks}}</p>
+    <br>
+</div>
+{%empty%}
+<p>No comments here yet:</p>
+{%endfor%}
+{% endfor %}
+
+    <div class="paginator">
+{%if posts.has_previous%}
+<a href="?page=1">처음으로</a>
+<a href="?page={{posts.previous_page_number}}">이전 페이지로</a>
+{%endif%}
+
+<span>{{posts.number}}</span>
+<span>of</span>
+<span>{{posts.paginator.num_pages}}</span>
+
+{%if posts.has_next%}
+<a href="?page={{posts.next_page_number}}">다음 페이지로</a>
+<a href="?page={{posts.paginator.num_pages}}">마지막으로</a>
+{%endif%}
+{%endblock%}
+    </div>
+</div>
+</body>
+
+<script>
+    $('.delete').click(function () {
+        if (confirm('Are you sure?') == true){
+
+        }else {
+            return false;
+        }
+    });
+</script>
+
+</html>

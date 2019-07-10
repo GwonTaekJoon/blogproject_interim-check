@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    
+    <title>멋쟁이사자처럼 중앙과제</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+		<script src="http://d3js.org/d3.v5.js"></script>
+
+
+    <style>
+        .target{
+            margin-top:300px;
+            color:blue;
+            font-size: 66px;
+
+        }
+        .smalltext{
+            font-size:30px;
+            text-align: center;
+            margin:0 auto;
+        }
+        p,a,h1{
+            font-family: 'Do Hyeon', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+		<h1 class='target'></h1>
+		<script>
+			var end = "멋쟁이사자처럼 7기 at 삼육대학교 -권택준";
+			d3.select('.target').transition().duration(2000)
+			  .tween("text", function() {
+				var i = d3.interpolateNumber(0, end.length);
+				return function(t) {
+					var idx = Math.round(i(t));
+					this.textContent = end.substr(0, idx);
+				};
+			  });
+		</script>
+
+    <div class='smalltext'>
+    <a  href="{% url 'home' %}">중앙과제 블로그 </a><br>
+        <div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+{% block content %}
+<h1>New comment</h1>
+<form method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+</form>
+{% endblock %}
